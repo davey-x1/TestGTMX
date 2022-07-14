@@ -32,7 +32,7 @@ public class DirectorioRestService {
     public ResponseEntity<?> getPersonas(){
         LOG.info("Encontrando todas las personas");
         List<PersonaDTO> listaDTO = directorio.findPersonas().stream().map(PersonaDTO::new).collect(Collectors.toList());
-        LOG.trace("Personas encontradas exitosamente");
+        LOG.info("Personas encontradas exitosamente");
         return new ResponseEntity<>(listaDTO, HttpStatus.ACCEPTED);
     }
 
@@ -47,7 +47,7 @@ public class DirectorioRestService {
             return new ResponseEntity<>("Persona no encontrada", HttpStatus.FORBIDDEN);
         }
 
-        LOG.trace("Persona con identificacion " + identificacion + " encontrada correctamente");
+        LOG.info("Persona con identificacion " + identificacion + " encontrada correctamente");
         PersonaDTO personaDTO = new PersonaDTO(persona);
         return new ResponseEntity<>(personaDTO, HttpStatus.ACCEPTED);
     }
@@ -75,7 +75,7 @@ public class DirectorioRestService {
         Persona nuevaPersona = new Persona(nombre, apellidoPaterno, apellidoMaterno, identificacion);
         LOG.info("Guardando nuevo registro persona en el sistema");
         Persona personaCreada = directorio.storePersona(nuevaPersona);
-        LOG.trace("Persona guardada correctamente");
+        LOG.info("Persona guardada correctamente");
         return new ResponseEntity<>(personaCreada, HttpStatus.ACCEPTED);
     }
 
@@ -97,7 +97,7 @@ public class DirectorioRestService {
         });
 
         directorio.deletePersonaByIdentificacion(persona);
-        LOG.trace("Persona eliminada correctamente");
+        LOG.info("Persona eliminada correctamente");
         return new ResponseEntity<>("Persona eliminada correctamente", HttpStatus.ACCEPTED);
     }
 }
